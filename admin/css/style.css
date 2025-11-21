@@ -431,11 +431,8 @@ button, input, select, textarea {
 
 .auth-card {
   width: min(420px, 100%);
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
+  background: transparent;
   padding: 2rem;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
 }
 
 .auth-card h1 {
