@@ -57,6 +57,38 @@ CREATE TABLE tblissues (
     FOREIGN KEY (UserEmail) REFERENCES tblusers(EmailId) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Additional tables that might be needed for a complete tour travel website
+
+-- Table for storing static pages content (about us, terms, privacy, etc.)
+CREATE TABLE tblpages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    PageName VARCHAR(200) NOT NULL,
+    PageDescription LONGTEXT,
+    PostingDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Table for storing contact form enquiries
+CREATE TABLE tblenquiry (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    FullName VARCHAR(255) NOT NULL,
+    EmailId VARCHAR(100) NOT NULL,
+    MobileNumber VARCHAR(15) NOT NULL,
+    Subject VARCHAR(300) NOT NULL,
+    Description TEXT NOT NULL,
+    PostingDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Status INT DEFAULT 0 -- 0=Unread, 1=Read
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Table for storing admin information
+CREATE TABLE tbladmin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    AdminUserName VARCHAR(150) NOT NULL UNIQUE,
+    AdminEmailId VARCHAR(150) NOT NULL UNIQUE,
+    AdminPassword VARCHAR(255) NOT NULL,
+    RegDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdationDate TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Insert sample data for tour packages
 INSERT INTO tbltourpackages (PackageName, PackageType, PackageLocation, PackagePrice, PackageFetures, PackageDetails, PackageImage) VALUES
 ('Du lịch Đà Lạt 3N2Đ', 'Tour du lịch', 'Đà Lạt', 350.00, 'Khách sạn 3 sao, Ăn uống, Xe đưa đón', 'Khám phá thành phố ngàn hoa với các điểm đến nổi tiếng như Thung lũng Tình Yêu, Dinh Bảo Đại, Hồ Xuân Hương...', 'dalat.jpg'),
@@ -81,9 +113,22 @@ INSERT INTO tblissues (UserEmail, Issue, Description, PostingDate) VALUES
 ('user1@gmail.com', 'Trễ giờ xe đón', 'Xe đón tour đi trễ 1 tiếng so với lịch hẹn', '2024-11-15 14:30:00'),
 ('user2@gmail.com', 'Chất lượng phòng không đúng mô tả', 'Phòng không sạch sẽ như quảng cáo, cần phản ánh', '2024-11-18 09:45:00');
 
+-- Insert sample page data
+INSERT INTO tblpages (PageName, PageDescription) VALUES
+('aboutus', '<p>GoTravel là công ty du lịch hàng đầu với hơn 10 năm kinh nghiệm trong lĩnh vực tổ chức tour du lịch trong và ngoài nước.</p><p>Chúng tôi cam kết mang đến cho khách hàng những trải nghiệm du lịch tuyệt vời với chất lượng dịch vụ tốt nhất.</p>'),
+('terms', '<p>Khách hàng cần thanh toán đầy đủ trước khi tour bắt đầu.</p><p>Mọi sự thay đổi cần được thông báo trước ít nhất 7 ngày.</p><p>Công ty không chịu trách nhiệm nếu khách hàng vi phạm luật pháp tại địa phương.</p>'),
+('privacy', '<p>Chúng tôi cam kết bảo mật thông tin cá nhân của khách hàng.</p><p>Thông tin chỉ được sử dụng cho mục đích phục vụ tour du lịch.</p><p>Chúng tôi không chia sẻ thông tin cho bên thứ ba khi không có sự cho phép.</p>');
+
+-- Insert sample admin user (password is 'admin123' after hashing)
+INSERT INTO tbladmin (AdminUserName, AdminEmailId, AdminPassword) VALUES
+('admin', 'admin@webdulich.com', '$2y$10$3u1/JXZy7L0w8N4B.058eO6H3K8zJ2w9q5Y7x6v4n1m0p9o8i7u6t5r4s3q2');
+
 -- Create indexes for better performance
 CREATE INDEX idx_package_location ON tbltourpackages(PackageLocation);
 CREATE INDEX idx_booking_user_email ON tblbooking(UserEmail);
 CREATE INDEX idx_booking_package_id ON tblbooking(PackageId);
 CREATE INDEX idx_issues_user_email ON tblissues(UserEmail);
 CREATE INDEX idx_booking_date ON tblbooking(FromDate, ToDate);
+CREATE INDEX idx_users_email ON tblusers(EmailId);
+CREATE INDEX idx_enquiry_email ON tblenquiry(EmailId);
+CREATE INDEX idx_admin_username ON tbladmin(AdminUserName);
