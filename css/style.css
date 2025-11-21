@@ -504,6 +504,26 @@ section + section {
   color: #e2e8f0;
 }
 
+.newsletter-form {
+	display: flex;
+	margin-top: 1rem;
+}
+
+.newsletter-form input {
+	flex-grow: 1;
+	border-radius: 999px 0 0 999px;
+	border-right: none;
+}
+
+.newsletter-form button {
+	border-radius: 0 999px 999px 0;
+	background: var(--brand);
+	color: #fff;
+	border: none;
+	padding: 0 1.5rem;
+	cursor: pointer;
+}
+
 .site-footer__bottom {
   margin-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
