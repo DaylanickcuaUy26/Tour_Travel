@@ -57,13 +57,11 @@ CREATE TABLE tblissues (
     FOREIGN KEY (UserEmail) REFERENCES tblusers(EmailId) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Additional tables that might be needed for a complete tour travel website
-
 -- Table for storing static pages content (about us, terms, privacy, etc.)
 CREATE TABLE tblpages (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    PageName VARCHAR(200) NOT NULL,
-    PageDescription LONGTEXT,
+    type VARCHAR(200) NOT NULL UNIQUE, -- Page type identifier (aboutus, terms, privacy, contact)
+    detail LONGTEXT, -- Page content
     PostingDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -87,6 +85,16 @@ CREATE TABLE tbladmin (
     AdminPassword VARCHAR(255) NOT NULL,
     RegDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdationDate TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Table for password reset tokens
+CREATE TABLE tblpasswordreset (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    EmailId VARCHAR(100) NOT NULL,
+    Token VARCHAR(255) NOT NULL,
+    CreationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ExpiryDate TIMESTAMP NOT NULL,
+    FOREIGN KEY (EmailId) REFERENCES tblusers(EmailId) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Insert sample data for tour packages
@@ -114,10 +122,16 @@ INSERT INTO tblissues (UserEmail, Issue, Description, PostingDate) VALUES
 ('user2@gmail.com', 'Chất lượng phòng không đúng mô tả', 'Phòng không sạch sẽ như quảng cáo, cần phản ánh', '2024-11-18 09:45:00');
 
 -- Insert sample page data
-INSERT INTO tblpages (PageName, PageDescription) VALUES
+INSERT INTO tblpages (type, detail) VALUES
 ('aboutus', '<p>GoTravel là công ty du lịch hàng đầu với hơn 10 năm kinh nghiệm trong lĩnh vực tổ chức tour du lịch trong và ngoài nước.</p><p>Chúng tôi cam kết mang đến cho khách hàng những trải nghiệm du lịch tuyệt vời với chất lượng dịch vụ tốt nhất.</p>'),
 ('terms', '<p>Khách hàng cần thanh toán đầy đủ trước khi tour bắt đầu.</p><p>Mọi sự thay đổi cần được thông báo trước ít nhất 7 ngày.</p><p>Công ty không chịu trách nhiệm nếu khách hàng vi phạm luật pháp tại địa phương.</p>'),
-('privacy', '<p>Chúng tôi cam kết bảo mật thông tin cá nhân của khách hàng.</p><p>Thông tin chỉ được sử dụng cho mục đích phục vụ tour du lịch.</p><p>Chúng tôi không chia sẻ thông tin cho bên thứ ba khi không có sự cho phép.</p>');
+('privacy', '<p>Chúng tôi cam kết bảo mật thông tin cá nhân của khách hàng.</p><p>Thông tin chỉ được sử dụng cho mục đích phục vụ tour du lịch.</p><p>Chúng tôi không chia sẻ thông tin cho bên thứ ba khi không có sự cho phép.</p>'),
+('contact', '<p>Vui lòng liên hệ với chúng tôi theo thông tin dưới đây:</p><p>Địa chỉ: 123 Đường Du Lịch, Quận 1, TP.HCM</p><p>Điện thoại: +84 123 456 789</p><p>Email: info@gotravel.com</p>');
+
+-- Insert sample enquiry data
+INSERT INTO tblenquiry (FullName, EmailId, MobileNumber, Subject, Description) VALUES
+('Nguyen Van D', 'nguyenvand@gmail.com', '0123456788', 'Yêu cầu báo giá tour Đà Lạt', 'Tôi muốn biết thêm thông tin và giá tour Đà Lạt 4 ngày 3 đêm cho 2 người lớn và 1 trẻ em.', '2024-10-10 10:30:00'),
+('Tran Thi E', 'tranthie@gmail.com', '0987654322', 'Hỏi về dịch vụ tour nước ngoài', 'Công ty có tổ chức tour sang các nước Đông Nam Á không? Tôi muốn đi Thái Lan.', '2024-10-15 14:20:00');
 
 -- Insert sample admin user (password is 'admin123' after hashing)
 INSERT INTO tbladmin (AdminUserName, AdminEmailId, AdminPassword) VALUES
@@ -132,3 +146,5 @@ CREATE INDEX idx_booking_date ON tblbooking(FromDate, ToDate);
 CREATE INDEX idx_users_email ON tblusers(EmailId);
 CREATE INDEX idx_enquiry_email ON tblenquiry(EmailId);
 CREATE INDEX idx_admin_username ON tbladmin(AdminUserName);
+CREATE INDEX idx_pages_type ON tblpages(type);
+CREATE INDEX idx_enquiry_status ON tblenquiry(Status);
