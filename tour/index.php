@@ -28,15 +28,9 @@ $locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
 	<section class="hero">
 		<div class="container hero__grid">
 			<div class="hero__content">
-<<<<<<< HEAD
 				<p class="hero__eyebrow" style="text-shadow: 2px 20px 5px rgba(0,0,0,1);">GoTravel</p>
 				<h1>ĐẶT TOUR DU LỊCH DỄ DÀNG CHỈ TRONG VÀI PHÚT</h1>
 				<p>Hệ thống gọn nhẹ giúp bạn khám phá tour phù hợp, quản lý lịch sử đặt và nhận hỗ trợ tức thời. Thiết kế hướng tới trải nghiệm rõ ràng, tối giản.</p>
-=======
-				<p style="color: #e5e7eb;">GoTravel</p>
-				<h1 style="color: #fff;">Đặt tour du lịch dễ dàng chỉ trong vài phút</h1>
-				<p style="color: #e5e7eb;">Hệ thống gọn nhẹ giúp bạn khám phá tour phù hợp, quản lý lịch sử đặt và nhận hỗ trợ tức thời. Thiết kế hướng tới trải nghiệm rõ ràng, tối giản.</p>
->>>>>>> cfc526c25ef8d0dc18d40aea4271c34fb350a2ff
 				<div class="hero__cta">
 					<a class="btn" href="package-list.php">Khám phá gói tour</a>
 					<?php if(empty($_SESSION['login'])): ?>

@@ -433,8 +433,10 @@ button, input, select, textarea {
 
 .auth-card {
   width: min(420px, 100%);
-  background: transparent;
+  background: rgba(48, 48, 48, 0.6);
   padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
 }
 
 .auth-card h1 {
