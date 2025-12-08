@@ -1,40 +1,10 @@
-<?php
-session_start();
-error_reporting(0);
-include('includes/config.php');
-if(isset($_POST['submit']))
-{
-$contact=$_POST['mobile'];
-$email=$_POST['email'];
-$newpassword=md5($_POST['newpassword']);
-$sql ="SELECT EmailId FROM tblusers WHERE EmailId=:email and MobileNumber=:contact";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':contact', $contact, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
-{
-$con="update tblusers set Password=:newpassword where EmailId=:email and MobileNumber=:contact";
-$chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':email', $email, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':contact', $contact, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-$chngpwd1->execute();
-$msg="Đặt lại mật khẩu thành công";
-}
-else {
-$error="Email hoặc số điện thoại không hợp lệ";
-}
-}
-?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GoTravel | Quên mật khẩu</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/style.css">
 	<script>
 	function valid(){
 		const newPass = document.chngpwd.newpassword.value;
@@ -49,16 +19,24 @@ $error="Email hoặc số điện thoại không hợp lệ";
 	</script>
 </head>
 <body>
-<?php include('includes/header.php');?>
+<?php include ROOT . "/includes/header.php"; ?>
 <main class="page">
 	<div class="container">
 		<section class="page-head">
 			<h1>Khôi phục mật khẩu</h1>
 			<p>Nhập email và số điện thoại đã đăng ký để tạo mật khẩu mới.</p>
 		</section>
-		<?php if($error){?><div class="alert error"><strong>Lỗi:</strong> <?php echo htmlentities($error); ?></div><?php } elseif($msg){?><div class="alert success"><strong>Thành công:</strong> <?php echo htmlentities($msg); ?></div><?php }?>
+		<?php if (
+      $data["error"]
+  ) { ?><div class="alert error"><strong>Lỗi:</strong> <?php echo htmlentities(
+    $data["error"],
+); ?></div><?php } elseif (
+      $data["msg"]
+  ) { ?><div class="alert success"><strong>Thành công:</strong> <?php echo htmlentities(
+    $data["msg"],
+); ?></div><?php } ?>
 		<section class="card">
-			<form name="chngpwd" method="post" onSubmit="return valid();" class="form-stack">
+			<form name="chngpwd" method="post" onSubmit="return valid();" class="form-stack" action="<?php echo BASE_URL; ?>user/resetPassword">
 				<div class="form-group">
 					<label for="email">Email đã đăng ký</label>
 					<input type="email" name="email" id="email" required>
@@ -82,9 +60,9 @@ $error="Email hoặc số điện thoại không hợp lệ";
 		</section>
 	</div>
 </main>
-<?php include('includes/footer.php');?>
-<?php include('includes/signup.php');?>
-<?php include('includes/signin.php');?>
-<?php include('includes/write-us.php');?>
+<?php include ROOT . "/includes/footer.php"; ?>
+<?php include ROOT . "/includes/signup.php"; ?>
+<?php include ROOT . "/includes/signin.php"; ?>
+<?php include ROOT . "/includes/write-us.php"; ?>
 </body>
 </html>

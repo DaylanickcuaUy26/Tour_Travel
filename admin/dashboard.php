@@ -56,7 +56,7 @@ include('includes/layout-start.php');
 		<section class="card">
 			<div class="admin-page-head" style="margin-bottom:1rem;">
 				<h2>Đặt tour mới nhất</h2>
-				<a class="btn btn-ghost" href="manage-bookings.php">Xem tất cả</a>
+				<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/manage-bookings.php">Xem tất cả</a>
 			</div>
 			<div class="table-responsive">
 				<table class="table">
@@ -94,10 +94,10 @@ include('includes/layout-start.php');
 		<section class="card">
 			<h2>Thao tác nhanh</h2>
 			<div class="form-grid">
-				<a class="btn btn-primary" href="create-package.php">Tạo gói tour</a>
-				<a class="btn btn-secondary" href="manage-packages.php">Quản lý gói tour</a>
-				<a class="btn btn-ghost" href="manageissues.php">Xem yêu cầu hỗ trợ</a>
-				<a class="btn btn-ghost" href="manage-enquires.php">Hộp thư liên hệ</a>
+				<a class="btn btn-primary" href="<?php echo BASE_URL; ?>admin/create-package.php">Tạo gói tour</a>
+				<a class="btn btn-secondary" href="<?php echo BASE_URL; ?>admin/manage-packages.php">Quản lý gói tour</a>
+				<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/manageissues.php">Xem yêu cầu hỗ trợ</a>
+				<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/manage-enquires.php">Hộp thư liên hệ</a>
 			</div>
 		</section>
 	</main>

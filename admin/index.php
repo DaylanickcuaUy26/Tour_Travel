@@ -28,7 +28,7 @@ if(isset($_POST['login']))
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GoTravel Admin | Đăng nhập</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>admin/css/style.css">
 </head>
 <body class="auth-page" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../admin/pacakgeimages/tour_halong.webp') no-repeat center center; background-size: cover;">
 	<div class="auth-card">
@@ -46,8 +46,8 @@ if(isset($_POST['login']))
 			</div>
 			<button type="submit" name="login" class="btn btn-primary">Đăng nhập</button>
 		</form>
-		<p class="helper-text"><a href="../index.php" style="color:#e5e7eb">← Quay lại trang khách</a></p>
+		<p class="helper-text"><a href="<?php echo BASE_URL; ?>" style="color:#e5e7eb">← Quay lại trang khách</a></p>
 	</div>
-	<script src="js/app.js" defer></script>
+	<script src="<?php echo BASE_URL; ?>admin/js/app.js" defer></script>
 </body>
 </html>

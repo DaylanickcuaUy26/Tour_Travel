@@ -38,7 +38,7 @@ include('includes/layout-start.php');
 				<h1>Quản lý gói tour</h1>
 				<p>Danh sách tất cả gói tour đang có trên hệ thống.</p>
 			</div>
-			<a class="btn btn-primary" href="create-package.php">+ Tạo gói tour</a>
+			<a class="btn btn-primary" href="<?php echo BASE_URL; ?>admin/create-package.php">+ Tạo gói tour</a>
 		</section>
 		<?php if($error){?><div class="alert error"><?php echo htmlentities($error); ?></div><?php } ?>
 		<?php if($msg){?><div class="alert success"><?php echo htmlentities($msg); ?></div><?php } ?>
@@ -71,8 +71,8 @@ include('includes/layout-start.php');
 							<td><?php echo htmlentities($result->PackagePrice);?></td>
 							<td><?php echo htmlentities($result->Creationdate);?></td>
 							<td>
-								<a class="btn btn-ghost" href="update-package.php?pid=<?php echo htmlentities($result->PackageId);?>">Xem chi tiết</a>
-								<a class="btn btn-danger" href="manage-packages.php?del=<?php echo htmlentities($result->PackageId);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa gói tour này không?');">Xóa</a>
+								<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/update-package.php?pid=<?php echo htmlentities($result->PackageId);?>">Xem chi tiết</a>
+								<a class="btn btn-danger" href="<?php echo BASE_URL; ?>admin/manage-packages.php?del=<?php echo htmlentities($result->PackageId);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa gói tour này không?');">Xóa</a>
 							</td>
 						</tr>
 					<?php $cnt++; }} else { ?>

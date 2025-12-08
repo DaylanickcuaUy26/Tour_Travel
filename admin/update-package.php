@@ -79,8 +79,8 @@ $msg="Cập nhật gói tour thành công";
 				<div class="form-group">
 					<label>Hình ảnh hiện tại</label>
 					<div style="display:flex;gap:1rem;align-items:center;">
-						<img src="pacakgeimages/<?php echo htmlentities($package->PackageImage);?>" alt="Ảnh gói tour" style="width:120px;border-radius:0.5rem;">
-						<a class="btn btn-ghost" href="change-image.php?imgid=<?php echo htmlentities($package->PackageId);?>">Thay đổi hình</a>
+						<img src="<?php echo BASE_URL; ?>admin/pacakgeimages/<?php echo htmlentities($package->PackageImage);?>" alt="Ảnh gói tour" style="width:120px;border-radius:0.5rem;">
+						<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/change-image.php?imgid=<?php echo htmlentities($package->PackageId);?>">Thay đổi hình</a>
 					</div>
 				</div>
 				<div class="form-group">

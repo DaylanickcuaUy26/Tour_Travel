@@ -3,7 +3,7 @@
 		<button class="modal__close" data-modal-close aria-label="Đóng">&times;</button>
 		<h3>Yêu cầu hỗ trợ</h3>
 		<p class="helper-text">Gặp vấn đề? Hãy cho chúng tôi biết để được hỗ trợ nhanh nhất.</p>
-		<form method="post" action="submit-issue.php" class="form-stack">
+		<form method="post" action="<?php echo BASE_URL; ?>issue/submit" class="form-stack">
 			<div class="form-group">
 				<label for="support-issue">Chủ đề</label>
 				<input type="text" id="support-issue" name="issue" placeholder="Vấn đề bạn gặp phải" required>

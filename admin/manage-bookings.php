@@ -93,7 +93,7 @@ include('includes/layout-start.php');
 						<div><?php echo htmlentities($result->mnumber);?></div>
 						<div class="helper-text"><?php echo htmlentities($result->email);?></div>
 					</td>
-					<td><a href="update-package.php?pid=<?php echo htmlentities($result->pid);?>"><?php echo htmlentities($result->pckname);?></a></td>
+					<td><a href="<?php echo BASE_URL; ?>admin/update-package.php?pid=<?php echo htmlentities($result->pid);?>"><?php echo htmlentities($result->pckname);?></a></td>
 					<td><?php echo htmlentities($result->fdate);?> → <?php echo htmlentities($result->tdate);?></td>
 					<td><?php echo htmlentities($result->comment);?></td>
 					<td><span class="status-chip <?php echo $statusClass;?>"><?php echo htmlentities($statusText);?></span></td>
@@ -101,11 +101,11 @@ include('includes/layout-start.php');
 						<?php if($result->status==2){ ?>
 							<span class="link-muted">Đã hủy</span>
 						<?php } else { ?>
-							<a class="btn btn-danger" href="manage-bookings.php?bkid=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đặt tour này không?')">Hủy</a>
-							<a class="btn btn-primary" href="manage-bookings.php?bckid=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Bạn có chắc chắn muốn xác nhận đặt tour này không?')">Xác nhận</a>
+							<a class="btn btn-danger" href="<?php echo BASE_URL; ?>admin/manage-bookings.php?bkid=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đặt tour này không?')">Hủy</a>
+							<a class="btn btn-primary" href="<?php echo BASE_URL; ?>admin/manage-bookings.php?bckid=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Bạn có chắc chắn muốn xác nhận đặt tour này không?')">Xác nhận</a>
 						<?php } ?>
 					</td>
-					<td><a class="btn btn-ghost" href="manage-bookings.php?del=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này không?');">Xóa</a></td>
+					<td><a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/manage-bookings.php?del=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa bản ghi này không?');">Xóa</a></td>
 				</tr>
 				<?php }
 				} else { ?>

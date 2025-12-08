@@ -30,7 +30,7 @@ $issue=$query->fetch(PDO::FETCH_OBJ);
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Cập nhật ghi chú</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>admin/css/style.css">
 </head>
 <body style="padding:2rem; background:#f5f7fb;">
 	<div class="card" style="max-width:600px;margin:0 auto;">

@@ -46,7 +46,7 @@ $msg="Cập nhật hình ảnh gói tour thành công";
 			<form method="post" enctype="multipart/form-data" class="form-stack">
 				<div class="form-group">
 					<label>Hình ảnh hiện tại</label>
-					<img src="pacakgeimages/<?php echo htmlentities($package->PackageImage);?>" alt="Ảnh gói tour" style="width:200px;border-radius:0.75rem;">
+					<img src="<?php echo BASE_URL; ?>admin/pacakgeimages/<?php echo htmlentities($package->PackageImage);?>" alt="Ảnh gói tour" style="width:200px;border-radius:0.75rem;">
 				</div>
 				<div class="form-group">
 					<label for="packageimage">Hình ảnh mới</label>

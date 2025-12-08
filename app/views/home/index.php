@@ -1,18 +1,3 @@
-<?php
-session_start();
-error_reporting(0);
-include('includes/config.php');
-
-$packageSql = "SELECT * FROM tbltourpackages ORDER BY rand() LIMIT 4";
-$packageQuery = $dbh->prepare($packageSql);
-$packageQuery->execute();
-$packages = $packageQuery->fetchAll(PDO::FETCH_OBJ);
-
-$locationSql = "SELECT DISTINCT PackageLocation FROM tbltourpackages WHERE PackageLocation <> '' ORDER BY PackageLocation";
-$locationQuery = $dbh->prepare($locationSql);
-$locationQuery->execute();
-$locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
-?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,10 +5,11 @@ $locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GoTravel | Trang chủ</title>
 	<meta name="description" content="Đặt tour du lịch nhanh chóng, quản lý lịch trình và nhận hỗ trợ 24/7 cùng GoTravel.">
-	<link rel="stylesheet" href="css/style.css">
+
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/style.css">
 </head>
 <body>
-<?php include('includes/header.php');?>
+<?php include ROOT . "/includes/header.php"; ?>
 <main>
 	<section class="hero">
 		<div class="container hero__grid">
@@ -32,15 +18,15 @@ $locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
 				<h1 style="color: #fff;">Đặt tour du lịch dễ dàng chỉ trong vài phút</h1>
 				<p style="color: #e5e7eb;">Hệ thống gọn nhẹ giúp bạn khám phá tour phù hợp, quản lý lịch sử đặt và nhận hỗ trợ tức thời. Thiết kế hướng tới trải nghiệm rõ ràng, tối giản.</p>
 				<div class="hero__cta">
-					<a class="btn" href="package-list.php">Khám phá gói tour</a>
-					<?php if(empty($_SESSION['login'])): ?>
+					<a class="btn" href="<?php echo BASE_URL; ?>package">Khám phá gói tour</a>
+					<?php if (empty($_SESSION["login"])): ?>
 						<a class="btn btn-ghost" href="#" data-modal-target="signup-modal">Đăng ký ngay</a>
 					<?php else: ?>
-						<a class="btn btn-ghost" href="tour-history.php">Lịch sử tour</a>
+						<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>tour/history">Lịch sử tour</a>
 					<?php endif; ?>
 				</div>
 			</div>
-			<form class="hero__card" action="package-list.php" method="get">
+			<form class="hero__card" action="<?php echo BASE_URL; ?>package" method="get">
 				<p style="letter-spacing: .3rem;">Tìm tour</p>
 				<h3 style="margin-top:0;">Bắt đầu với nhu cầu của bạn</h3>
 				<div class="form-group">
@@ -51,8 +37,10 @@ $locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
 					<label for="location">Địa điểm nổi bật</label>
 					<select name="location" id="location">
 						<option value="">Tất cả địa điểm</option>
-						<?php foreach($locations as $loc): ?>
-							<option value="<?php echo htmlentities($loc->PackageLocation);?>"><?php echo htmlentities($loc->PackageLocation);?></option>
+						<?php foreach ($data["locations"] as $loc): ?>
+							<option value="<?php echo htmlentities(
+           $loc->PackageLocation,
+       ); ?>"><?php echo htmlentities($loc->PackageLocation); ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
@@ -97,23 +85,29 @@ $locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
 		<div class="container">
 			<div class="section__header">
 				<h2>Tour nổi bật</h2>
-				<a href="package-list.php">Xem tất cả</a>
+				<a href="<?php echo BASE_URL; ?>package">Xem tất cả</a>
 			</div>
-			<?php if(count($packages)): ?>
+			<?php if (count($data["packages"])): ?>
 				<div class="tour-grid">
-					<?php foreach($packages as $package): ?>
+					<?php foreach ($data["packages"] as $package): ?>
 						<article class="tour-card">
-							<img src="admin/pacakgeimages/<?php echo htmlentities($package->PackageImage);?>" alt="<?php echo htmlentities($package->PackageName);?>">
-							<h4><?php echo htmlentities($package->PackageName);?></h4>
+							<img src="<?php echo BASE_URL; ?>admin/pacakgeimages/<?php echo htmlentities(
+    $package->PackageImage,
+); ?>" alt="<?php echo htmlentities($package->PackageName); ?>">
+							<h4><?php echo htmlentities($package->PackageName); ?></h4>
 							<div class="tour-card__meta">
-								<span><?php echo htmlentities($package->PackageLocation);?></span>
+								<span><?php echo htmlentities($package->PackageLocation); ?></span>
 								<span>|</span>
-								<span><?php echo htmlentities($package->PackageType);?></span>
+								<span><?php echo htmlentities($package->PackageType); ?></span>
 							</div>
-							<p><?php echo htmlentities($package->PackageFetures);?></p>
+							<p><?php echo htmlentities($package->PackageFetures); ?></p>
 							<div class="tour-card__footer">
-								<span class="price">USD <?php echo htmlentities($package->PackagePrice);?></span>
-								<a class="btn btn-ghost" href="package-details.php?pkgid=<?php echo htmlentities($package->PackageId);?>">Chi tiết</a>
+								<span class="price">USD <?php echo htmlentities(
+            $package->PackagePrice,
+        ); ?></span>
+								<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>package/details/<?php echo htmlentities(
+    $package->PackageId,
+); ?>">Chi tiết</a>
 							</div>
 						</article>
 					<?php endforeach; ?>
@@ -147,17 +141,17 @@ $locations = $locationQuery->fetchAll(PDO::FETCH_OBJ);
 				<h2>Sẵn sàng lên đường?</h2>
 				<p>Hãy gửi yêu cầu hoặc liên hệ đội hỗ trợ để được tư vấn hành trình phù hợp nhất.</p>
 			</div>
-			<?php if(empty($_SESSION['login'])): ?>
-				<a class="btn btn-ghost" href="enquiry.php">Gửi hỏi đáp</a>
+			<?php if (empty($_SESSION["login"])): ?>
+				<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>enquiry">Gửi hỏi đáp</a>
 			<?php else: ?>
-				<a class="btn btn-ghost" href="issuetickets.php">Gửi yêu cầu</a>
+				<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>issue/tickets">Gửi yêu cầu</a>
 			<?php endif; ?>
 		</div>
 	</section>
 </main>
-<?php include('includes/footer.php');?>
-<?php include('includes/signup.php');?>
-<?php include('includes/signin.php');?>
-<?php include('includes/write-us.php');?>
+<?php include ROOT . "/includes/footer.php"; ?>
+<?php include ROOT . "/includes/signup.php"; ?>
+<?php include ROOT . "/includes/signin.php"; ?>
+<?php include ROOT . "/includes/write-us.php"; ?>
 </body>
 </html>

@@ -73,8 +73,8 @@ include('includes/layout-start.php');
 					<td><?php echo htmlentities($result->Description);?></td>
 					<td><?php echo htmlentities($result->PostingDate);?></td>
 					<td>
-						<a class="btn btn-ghost" href="updateissue.php?iid=<?php echo htmlentities($result->id);?>" target="_blank">Xem &amp; ghi chú</a>
-						<a class="btn btn-danger" href="manageissues.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?');">Xóa</a>
+						<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/updateissue.php?iid=<?php echo htmlentities($result->id);?>" target="_blank">Xem &amp; ghi chú</a>
+						<a class="btn btn-danger" href="<?php echo BASE_URL; ?>admin/manageissues.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?');">Xóa</a>
 					</td>
 				</tr>
 				<?php $cnt++; } } else { ?>

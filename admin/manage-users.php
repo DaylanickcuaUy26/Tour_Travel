@@ -74,7 +74,7 @@ include('includes/layout-start.php');
 								echo htmlentities($lastUpdate);
 								?>
 							</td>
-							<td><a class="btn btn-danger" href="manage-users.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">Xóa</a></td>
+							<td><a class="btn btn-danger" href="<?php echo BASE_URL; ?>admin/manage-users.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">Xóa</a></td>
 						</tr>
 						<?php $cnt++; }} else { ?>
 						<tr><td colspan="7"><div class="empty-state">Chưa có người dùng nào.</div></td></tr>

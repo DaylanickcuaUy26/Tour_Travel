@@ -1,43 +1,13 @@
-<?php
-session_start();
-error_reporting(0);
-include('includes/config.php');
-if(isset($_POST['submit1']))
-{
-$fname=$_POST['fname'];
-$email=$_POST['email'];	
-$mobile=$_POST['mobileno'];
-$subject=$_POST['subject'];	
-$description=$_POST['description'];
-$sql="INSERT INTO  tblenquiry(FullName,EmailId,MobileNumber,Subject,Description) VALUES(:fname,:email,:mobile,:subject,:description)";
-$query = $dbh->prepare($sql);
-$query->bindParam(':fname',$fname,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
-$query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
-$query->bindParam(':subject',$subject,PDO::PARAM_STR);
-$query->bindParam(':description',$description,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$msg="Bạn đã gửi yêu cầu thành công";
-}
-else 
-{
-$error="Có lỗi xảy ra. Vui lòng thử lại";
-}
-}
-?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GoTravel | Liên hệ</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/style.css">
 </head>
-<body style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('admin/pacakgeimages/tour_halong.webp') no-repeat center center; background-size: cover;">
-<?php include('includes/header.php');?>
+<body style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<?php echo BASE_URL; ?>admin/pacakgeimages/tour_halong.webp') no-repeat center center; background-size: cover;">
+<?php include ROOT . "/includes/header.php"; ?>
 <main class="page">
 	<div class="container">
 		<section class="page-head">
@@ -45,8 +15,16 @@ $error="Có lỗi xảy ra. Vui lòng thử lại";
 			<p style="color: #e5e7eb">Gửi câu hỏi về tour, thanh toán hoặc hợp tác. Chúng tôi phản hồi trong 2 giờ.</p>
 		</section>
 		<section class="card" style="background: transparent; border: none;">
-			<?php if($error){?><div class="alert error"><strong>Lỗi:</strong> <?php echo htmlentities($error); ?> </div><?php } elseif($msg){?><div class="alert success"><strong>Thành công:</strong> <?php echo htmlentities($msg); ?> </div><?php }?>
-			<form name="enquiry" method="post" class="form-stack">
+			<?php if (
+       $data["error"]
+   ) { ?><div class="alert error"><strong>Lỗi:</strong> <?php echo htmlentities(
+    $data["error"],
+); ?> </div><?php } elseif (
+       $data["msg"]
+   ) { ?><div class="alert success"><strong>Thành công:</strong> <?php echo htmlentities(
+    $data["msg"],
+); ?> </div><?php } ?>
+			<form name="enquiry" method="post" class="form-stack" action="<?php echo BASE_URL; ?>enquiry/submit">
 				<div class="form-grid">
 					<div class="form-group">
 						<label for="fname" style="color: #fff">Họ và tên</label>
@@ -74,9 +52,9 @@ $error="Có lỗi xảy ra. Vui lòng thử lại";
 		</section>
 	</div>
 </main>
-<?php include('includes/footer.php');?>
-<?php include('includes/signup.php');?>
-<?php include('includes/signin.php');?>
-<?php include('includes/write-us.php');?>
+<?php include ROOT . "/includes/footer.php"; ?>
+<?php include ROOT . "/includes/signup.php"; ?>
+<?php include ROOT . "/includes/signin.php"; ?>
+<?php include ROOT . "/includes/write-us.php"; ?>
 </body>
 </html>

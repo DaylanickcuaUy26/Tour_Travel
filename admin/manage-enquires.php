@@ -81,9 +81,9 @@ include('includes/layout-start.php');
 					</td>
 					<td>
 						<?php if($result->Status!=1){ ?>
-							<a class="btn btn-primary" href="manage-enquires.php?eid=<?php echo htmlentities($result->id);?>">Đánh dấu đã xử lý</a>
+							<a class="btn btn-primary" href="<?php echo BASE_URL; ?>admin/manage-enquires.php?eid=<?php echo htmlentities($result->id);?>">Đánh dấu đã xử lý</a>
 						<?php } ?>
-						<a class="btn btn-ghost" href="manage-enquires.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa liên hệ này không?');">Xóa</a>
+						<a class="btn btn-ghost" href="<?php echo BASE_URL; ?>admin/manage-enquires.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có chắc chắn muốn xóa liên hệ này không?');">Xóa</a>
 					</td>
 				</tr>
 				<?php $cnt++; } } else { ?>

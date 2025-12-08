@@ -7,16 +7,15 @@
 		</div>
 		<div>
 			<h5>Điều hướng</h5>
-			<p><a href="package-list.php">Gói du lịch</a></p>
-			<p><a href="page.php?type=aboutus">Giới thiệu</a></p>
-			<p><a href="page.php?type=privacy">Chính sách bảo mật</a></p>
-			<p><a href="page.php?type=terms">Điều khoản</a></p>
+			<p><a href="<?php echo BASE_URL; ?>package">Gói du lịch</a></p>
+			<p><a href="<?php echo BASE_URL; ?>page/aboutus">Giới thiệu</a></p>
+			<p><a href="<?php echo BASE_URL; ?>page/privacy">Chính sách bảo mật</a></p>
+			<p><a href="<?php echo BASE_URL; ?>page/terms">Điều khoản</a></p>
 		</div>
 		<div>
 			<h5>Liên hệ</h5>
-			<p>Hotline: 0763165***</p>
+			<p>Hotline: 0987654321</p>
 			<p>Email: hello@gotravel.vn</p>
-			<p>***</p>
 		</div>
 		<div>
 			<h5>Bản tin</h5>
@@ -28,9 +27,6 @@
 		</div>
 	</div>
 	<div class="site-footer__bottom">
-		<div class="container">
-			<p>© <?php echo date('Y');?> © 2024 Travel Admin Panel. Developed by Uy.</p>
-		</div>
 	</div>
 </footer>
 <script src="js/app.js"></script>
