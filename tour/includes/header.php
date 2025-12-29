@@ -27,7 +27,7 @@ $pageType = isset($_GET['type']) ? $_GET['type'] : '';
 
 			<div class="nav-bar__content_left">
 			<div class="logo_posster">
-					<a href="index.php"><img src="../images/logo_tour.png"  alt="logo_poster"></a>
+					<a href="index.php"><img src="images/logo_tour.png"  alt="logo_poster"></a>
 				</div>
 			     <a class="brand" href="index.php">GoTravel</a>
 			</div>
